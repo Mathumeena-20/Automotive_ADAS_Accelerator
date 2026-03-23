@@ -1,0 +1,94 @@
+module cnn_top (
+    input clk,
+    input reset,
+    output reg valid,
+    output reg signed [15:0] final_out
+);
+
+// 5x5 Image (example)
+reg signed [7:0] img [0:24];
+
+// Kernel 3x3
+reg signed [7:0] k [0:8];
+
+// Sliding index
+integer i;
+
+// Window pixels
+reg signed [7:0] p0,p1,p2,p3,p4,p5,p6,p7,p8;
+
+// Convolution output
+wire signed [15:0] conv_out;
+wire signed [15:0] relu_out;
+
+// Initialize image + kernel
+initial begin
+    // Image (5x5)
+    img[0]=1; img[1]=2; img[2]=3; img[3]=4; img[4]=5;
+    img[5]=6; img[6]=7; img[7]=8; img[8]=9; img[9]=1;
+    img[10]=2; img[11]=3; img[12]=4; img[13]=5; img[14]=6;
+    img[15]=7; img[16]=8; img[17]=9; img[18]=1; img[19]=2;
+    img[20]=3; img[21]=4; img[22]=5; img[23]=6; img[24]=7;
+
+    // Kernel
+    k[0]=1; k[1]=0; k[2]=1;
+    k[3]=0; k[4]=1; k[5]=0;
+    k[6]=1; k[7]=0; k[8]=1;
+
+    i = 0;
+end
+
+// Convolution module
+conv3x3 conv_inst (
+    .clk(clk),
+    .reset(reset),
+    .p0(p0), .p1(p1), .p2(p2),
+    .p3(p3), .p4(p4), .p5(p5),
+    .p6(p6), .p7(p7), .p8(p8),
+    .k0(k[0]), .k1(k[1]), .k2(k[2]),
+    .k3(k[3]), .k4(k[4]), .k5(k[5]),
+    .k6(k[6]), .k7(k[7]), .k8(k[8]),
+    .result(conv_out)
+);
+
+// ReLU
+relu relu_inst (
+    .in(conv_out),
+    .out(relu_out)
+);
+
+// Sliding Window Logic
+always @(posedge clk or posedge reset) begin
+    if (reset) begin
+        i <= 0;
+        valid <= 0;
+        final_out <= 0;
+    end else begin
+
+        // Extract 3x3 window
+        p0 <= img[i];
+        p1 <= img[i+1];
+        p2 <= img[i+2];
+
+        p3 <= img[i+5];
+        p4 <= img[i+6];
+        p5 <= img[i+7];
+
+        p6 <= img[i+10];
+        p7 <= img[i+11];
+        p8 <= img[i+12];
+
+        // Output
+        final_out <= relu_out;
+        valid <= 1;
+
+        // Move window
+        i <= i + 1;
+
+        // Reset at end
+        if (i == 12)
+            i <= 0;
+    end
+end
+
+endmodule
