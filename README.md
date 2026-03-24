@@ -217,9 +217,6 @@ It is highly valuable for:
 * VLSI Interviews
 * FPGA Development
 * Hardware AI Acceleration
-<<<<<<< HEAD
 
 =======
->>>>>>> d004ffd504fd4c46984d58c0ef7991fd494003ee
----
 
