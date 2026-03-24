@@ -61,7 +61,12 @@ Technologies used in this project:
 
 ### CNN Accelerator Architecture
 
+<<<<<<< HEAD
 <img width="1337" height="671" alt="CNN Architecture" src="https://github.com/user-attachments/assets/1f2a8de1-08e5-45ff-83b3-f357d149b45b" />
+=======
+<img width="1337" height="671" alt="CNN Architecture" src="https://github.com/user-attachments/assets/37917162-a0d2-47bc-a047-7dd227bd93bd" />
+
+>>>>>>> d004ffd504fd4c46984d58c0ef7991fd494003ee
 
 ## 🧠 CNN Architecture Explanation
 
@@ -212,6 +217,9 @@ It is highly valuable for:
 * VLSI Interviews
 * FPGA Development
 * Hardware AI Acceleration
+<<<<<<< HEAD
 
+=======
+>>>>>>> d004ffd504fd4c46984d58c0ef7991fd494003ee
 ---
 
