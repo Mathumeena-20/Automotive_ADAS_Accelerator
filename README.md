@@ -128,13 +128,23 @@ Input → Convolution → ReLU → Pooling → Output
 
 y(i,j)=∑m=02​∑n=02​x(i+m,j+n)⋅k(m,n)
 
-📌 Meaning
+### 📌 Meaning
 
 x → input image
 k → kernel (filter)
 y → output
 
-🧠 2. MAC (MULTIPLY-ACCUMULATE)
+### 📌 Description
+- Core computation in CNN  
+- Performs multiplication followed by accumulation  
+
+### 💡 Hardware Mapping
+- Implemented using:
+  - `mac_unit.v`
+  - FPGA DSP blocks  
+
+
+### 🧠 2. MAC (MULTIPLY-ACCUMULATE)
 
 Another important operation:
 
@@ -145,8 +155,15 @@ Y=∑(Input×Weight)
 mac_unit.v
 DSP blocks in FPGA
 
+### 📌 Description
+Used for RGB images
+Each channel processed independently
 
-🧠 3. RELU ACTIVATION
+### 💡 Hardware Mapping
+Parallel convolution blocks
+Outputs accumulated
+
+### 🧠 3. RELU ACTIVATION
 
 f(x)=max(0,x)
 
@@ -157,13 +174,22 @@ if (in > 0)
 else
     out = 0;
 
-🧠 4. SLIDING WINDOW INDEXING
+
+### 🧠 4. SLIDING WINDOW INDEXING
 
 Window moves like:
 
 (i,j) → (i,j+1) → (i,j+2)
 
-🧠 5. MULTI-CHANNEL CONVOLUTION
+### 📌 Description
+Window moves across image
+Enables efficient convolution
+💡 Hardware Mapping
+Implemented using FSM control
+Optimized using line buffer (future enhancement)
+
+
+### 🧠 5. MULTI-CHANNEL CONVOLUTION
 
      c=1
 Y =  ∑ (Xc​∗Kc​)
@@ -171,19 +197,26 @@ Y =  ∑ (Xc​∗Kc​)
       
 )
 
-👉 Meaning:
+### 📌 Description
+Window moves across image
+Enables efficient convolution
 
-Each channel processed
-Results summed
+### 💡 Hardware Mapping
+Implemented using FSM control
+Optimized using line buffer (future enhancement)
 
 
-🧠 6. TIMING FORMULA (FROM YOUR ANALYSIS)
+
+### 🧠 6. TIMING FORMULA (FROM YOUR ANALYSIS)
 
 Slack=Required Time−Arrival Time
 
-👉 You used this in:
+### 📌 Description
+Measures timing performance
 
-TimeQuest Timing Analyzer
+### 💡 Result
+Positive slack → Design is safe
+Achieved timing closure in this project
 
 ---
 
