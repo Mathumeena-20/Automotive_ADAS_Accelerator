@@ -61,7 +61,7 @@ Technologies used in this project:
 
 ### CNN Accelerator Architecture
 
-<img width="1337" height="671" alt="CNN Architecture" src="https://github.com/user-attachments/assets/e56973f7-9bfc-4e79-8650-c7975c58d2fe" />
+<img width="1337" height="671" alt="CNN Architecture" src="https://github.com/user-attachments/assets/1f2a8de1-08e5-45ff-83b3-f357d149b45b" />
 
 ## 🧠 CNN Architecture Explanation
 
