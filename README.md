@@ -122,10 +122,73 @@ Input → Convolution → ReLU → Pooling → Output
 
 ---
 
+### 2️⃣ Mathematical Formula
+
+🧠 1. MAIN FORMULA: CONVOLUTION
+
+y(i,j)=∑m=02​∑n=02​x(i+m,j+n)⋅k(m,n)
+
+📌 Meaning
+
+x → input image
+k → kernel (filter)
+y → output
+
+🧠 2. MAC (MULTIPLY-ACCUMULATE)
+
+Another important operation:
+
+Y=∑(Input×Weight)
+
+👉 Implemented using:
+
+mac_unit.v
+DSP blocks in FPGA
+
+
+🧠 3. RELU ACTIVATION
+
+f(x)=max(0,x)
+
+👉 In your Verilog:
+
+if (in > 0)
+    out = in;
+else
+    out = 0;
+
+🧠 4. SLIDING WINDOW INDEXING
+
+Window moves like:
+
+(i,j) → (i,j+1) → (i,j+2)
+
+🧠 5. MULTI-CHANNEL CONVOLUTION
+
+     c=1
+Y =  ∑ (Xc​∗Kc​)
+     C
+      
+)
+
+👉 Meaning:
+
+Each channel processed
+Results summed
+
+
+🧠 6. TIMING FORMULA (FROM YOUR ANALYSIS)
+
+Slack=Required Time−Arrival Time
+
+👉 You used this in:
+
+TimeQuest Timing Analyzer
 
 ---
 
-### 2️⃣ Run Simulation (ModelSim)
+
+### 3️⃣ Run Simulation (ModelSim)
 
 ```bash
 vlog rtl/*.v tb/*.v
@@ -135,7 +198,7 @@ run -all
 
 ---
 
-### 3️⃣ Run Synthesis (Quartus)
+### 4️⃣ Run Synthesis (Quartus)
 
 * Add all RTL files
 * Set top module → `cnn_top`
@@ -144,7 +207,7 @@ run -all
 
 ---
 
-### 4️⃣ Timing Analysis
+### 5️⃣ Timing Analysis
 
 * Open **TimeQuest Analyzer**
 * Run **Report Timing**
